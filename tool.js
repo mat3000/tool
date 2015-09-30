@@ -74,44 +74,10 @@ var tool = {
 		            return prop[properties][key];
 			}
 
+			console.log('Unkwon error...');
+			return '';
+
 		}
-
-		/*transition : function(){
-
-			var self = this;
-
-	        var feature = false,
-	            // domPrefixes = 'Webkit Moz ms O'.split(' '),
-	            domPrefixes = ['Webkit', 'Moz', 'ms', 'O'],
-	            elm = document.createElement('div'),
-	            featurenameCapital = null,
-	            cssPrefixe = '';
-
-	        featurename = 'transition';
-
-	        if( elm.style[featurename] ) feature = true;
-
-	        if( feature === false ) {
-	            featurenameCapital = featurename.charAt(0).toUpperCase() + featurename.substr(1);
-	            for( var i = 0; i < domPrefixes.length; i++ ) {
-
-	                if( elm.style[domPrefixes[i] + featurenameCapital ] !== undefined ) {
-	                  feature = true;
-	                  cssPrefixe = '-'+domPrefixes[i].toLowerCase()+'-';
-	                  break;
-	                }
-	            }
-	        };
-
-	        return cssPrefixe;
-
-	        return feature;
-
-	        // if(self.debug) log.yellow(feature, '_checkCssTransition');
-
-	        // self.cssTransition = feature;
-
-	    }*/
 
 	}
 

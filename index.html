@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie6 lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js ie7 lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8 lt-ie9"><![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="fr_FR"><!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>tool.js</title>
+
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0" />
+
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    <script type="text/javascript" src="http://matdev.fr/mylog/mylog-5.0/mylog.dev-5.0.18.js"></script>
+    <script type="text/javascript">if(typeof log=='undefined'){log={time:function(){},size:function(){},key:function(){},loop:function(){},info:function(){},red:function(){},orange:function(){},yellow:function(){},green:function(){},Green:function(){},blue:function(){},violet:function(){},white:function(){},grey:function(){},black:function(){},show:function(){},important:function(){},alert:function(){},button:function(){},range:function(){}};};</script>
+    <style type="text/css">
+
+    .test{
+        position: relative;
+        width: 50px;
+        height: 50px;
+        background-color: red;
+    }
+
+    .test1{
+        /*-webkit-transition: -webkit-translate 1s linear;*/
+        transform : translate(50px);
+    }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="test test1">a</div>
+    <div class="test test2">b</div>
+
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="tool.js"></script>
+    <script type="text/javascript">
+
+    log.green( tool.cssPrefix.test('animation') );
+
+
+    // $(function(){
+
+    // });
+    </script>
+</body>
+</html>
+
+
+
+
+

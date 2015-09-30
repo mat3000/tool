@@ -52,7 +52,19 @@ var tool = {
 // css prefix
 	cssPrefix : {
 
-		test : function(properties){
+		css : function(properties){
+
+			return this._getprefix(properties).css;
+
+		},
+
+		js : function(properties){
+
+			return this._getprefix(properties).js;
+
+		},
+
+		_getprefix : function(properties){
 
 			var prop = {
 				'boxshadow' : {boxShadow:'', MozBoxShadow:'-moz-', WebkitBoxShadow:'-webkit-'},
@@ -70,14 +82,17 @@ var tool = {
 			var root=document.documentElement;
 
 			for(key in prop[properties]){
-				if (key in root.style)
-		            return prop[properties][key];
+				if (key in root.style){
+		            return {'css':prop[properties][key], 'js':key};
+				}
 			}
 
 			console.log('Unkwon error...');
 			return '';
 
 		}
+
+
 
 	}
 

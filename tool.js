@@ -70,7 +70,7 @@ var tool = {
 			var root=document.documentElement;
 
 			for(key in prop[properties]){
-				if (key in root.style){
+				if (key in root.style)
 		            return prop[properties][key];
 			}
 

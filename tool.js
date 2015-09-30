@@ -62,12 +62,16 @@ var tool = {
 				'animation' : {animation:'', MozAnimation:'-moz-', WebkitAnimation:'-webkit-', msAnimation:'-ms-', OAnimation:'-o-'}
 			};
 
+			if( !prop[properties] ){
+				console.log('properties not referenced !');
+				return '';
+			}
+
 			var root=document.documentElement;
 
 			for(key in prop[properties]){
 				if (key in root.style){
 		            return prop[properties][key];
-		        }
 			}
 
 		}

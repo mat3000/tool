@@ -83,7 +83,7 @@ var tool = {
 
 			for(key in prop[properties]){
 				if (key in root.style){
-		            return {'css':prop[properties][key], 'js':key};
+		            		return {'css':prop[properties][key], 'js':key};
 				}
 			}
 

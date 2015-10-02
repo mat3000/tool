@@ -57,7 +57,7 @@ var tool = {
 		_prop : {
 			'boxshadow' : {boxShadow:'', MozBoxShadow:'-moz-', WebkitBoxShadow:'-webkit-'},
 			'border-radius' : {borderRadius:'', MozBorderRadius:'-moz-', WebkitBorderRadius:'-webkit-'},
-			'transform' : {transform:'', MozTransform:'-moz-', WebkitTransform:'-webkit-', msTransform:'-ms-', OTransform:'-o-'},
+			'transform' : {transform:'', MozTransform:'-moz-', WebkitTransforma:'-webkit-', msTransform:'-ms-', OTransform:'-o-'},
 			'transition' : {transition:'', MozTransition:'-moz-', WebkitTransition:'-webkit-', msTransition:'-ms-', OTransition:'-o-'},
 			'animation' : {animation:'', MozAnimation:'-moz-', WebkitAnimation:'-webkit-', msAnimation:'-ms-', OAnimation:'-o-'}
 		},
@@ -79,6 +79,26 @@ var tool = {
 
 			console.log('properties not found...');
 			return '';
+
+		},
+
+		js : function(properties){
+
+			var self = this;
+
+			if( !self._prop[properties] ){
+				console.log('properties not referenced !');
+				return properties;
+			}
+
+			for(var key in self._prop[properties]){
+				if (key in self._root.style){
+		            return self._prop[properties][key];
+				}
+			}
+
+			console.log('properties not found...');
+			return Object.keys(self._prop[properties])[0];
 
 		}
 

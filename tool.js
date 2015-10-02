@@ -52,6 +52,34 @@ var tool = {
 // css prefix
 	cssPrefix : {
 
+		get : function(properties){
+
+			var prop = {
+				'boxshadow' : {boxShadow:'', MozBoxShadow:'-moz-', WebkitBoxShadow:'-webkit-'},
+				'border-radius' : {borderRadius:'', MozBorderRadius:'-moz-', WebkitBorderRadius:'-webkit-'},
+				'transform' : {transform:'', MozTransform:'-moz-', WebkitTransform:'-webkit-', msTransform:'-ms-', OTransform:'-o-'},
+				'transition' : {transition:'', MozTransition:'-moz-', WebkitTransition:'-webkit-', msTransition:'-ms-', OTransition:'-o-'},
+				'animation' : {animation:'', MozAnimation:'-moz-', WebkitAnimation:'-webkit-', msAnimation:'-ms-', OAnimation:'-o-'}
+			};
+
+			if( !prop[properties] ){
+				console.log('properties not referenced !');
+				return '';
+			}
+
+			var root=document.documentElement;
+
+			for(key in prop[properties]){
+				if (key in root.style){
+		            return key;
+				}
+			}
+
+			console.log('Unkwon error...');
+			return '';
+
+		}
+
 		css : function(properties){
 
 			return this._getprefix(properties).css;
@@ -76,7 +104,7 @@ var tool = {
 
 			if( !prop[properties] ){
 				console.log('properties not referenced !');
-				return '';
+				return {'css':'', 'js':false};
 			}
 
 			var root=document.documentElement;
@@ -88,11 +116,9 @@ var tool = {
 			}
 
 			console.log('Unkwon error...');
-			return '';
+			return {'css':'', 'js':false};
 
 		}
-
-
 
 	}
 

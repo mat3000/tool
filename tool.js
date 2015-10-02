@@ -50,73 +50,35 @@ var tool = {
 	},
 	
 // css prefix
-	cssPrefix : {
+	css : {
 
-		get : function(properties){
+		_root : document.documentElement,
 
-			var prop = {
-				'boxshadow' : {boxShadow:'', MozBoxShadow:'-moz-', WebkitBoxShadow:'-webkit-'},
-				'border-radius' : {borderRadius:'', MozBorderRadius:'-moz-', WebkitBorderRadius:'-webkit-'},
-				'transform' : {transform:'', MozTransform:'-moz-', WebkitTransform:'-webkit-', msTransform:'-ms-', OTransform:'-o-'},
-				'transition' : {transition:'', MozTransition:'-moz-', WebkitTransition:'-webkit-', msTransition:'-ms-', OTransition:'-o-'},
-				'animation' : {animation:'', MozAnimation:'-moz-', WebkitAnimation:'-webkit-', msAnimation:'-ms-', OAnimation:'-o-'}
-			};
+		_prop : {
+			'boxshadow' : {boxShadow:'', MozBoxShadow:'-moz-', WebkitBoxShadow:'-webkit-'},
+			'border-radius' : {borderRadius:'', MozBorderRadius:'-moz-', WebkitBorderRadius:'-webkit-'},
+			'transform' : {transform:'', MozTransform:'-moz-', WebkitTransform:'-webkit-', msTransform:'-ms-', OTransform:'-o-'},
+			'transition' : {transition:'', MozTransition:'-moz-', WebkitTransition:'-webkit-', msTransition:'-ms-', OTransition:'-o-'},
+			'animation' : {animation:'', MozAnimation:'-moz-', WebkitAnimation:'-webkit-', msAnimation:'-ms-', OAnimation:'-o-'}
+		},
 
-			if( !prop[properties] ){
+		prefix : function(properties){
+
+			var self = this;
+
+			if( !self._prop[properties] ){
 				console.log('properties not referenced !');
 				return '';
 			}
 
-			var root=document.documentElement;
-
-			for(key in prop[properties]){
-				if (key in root.style){
+			for(var key in self._prop[properties]){
+				if (key in self._root.style){
 		            return key;
 				}
 			}
 
-			console.log('Unkwon error...');
+			console.log('properties not found...');
 			return '';
-
-		}
-
-		css : function(properties){
-
-			return this._getprefix(properties).css;
-
-		},
-
-		js : function(properties){
-
-			return this._getprefix(properties).js;
-
-		},
-
-		_getprefix : function(properties){
-
-			var prop = {
-				'boxshadow' : {boxShadow:'', MozBoxShadow:'-moz-', WebkitBoxShadow:'-webkit-'},
-				'border-radius' : {borderRadius:'', MozBorderRadius:'-moz-', WebkitBorderRadius:'-webkit-'},
-				'transform' : {transform:'', MozTransform:'-moz-', WebkitTransform:'-webkit-', msTransform:'-ms-', OTransform:'-o-'},
-				'transition' : {transition:'', MozTransition:'-moz-', WebkitTransition:'-webkit-', msTransition:'-ms-', OTransition:'-o-'},
-				'animation' : {animation:'', MozAnimation:'-moz-', WebkitAnimation:'-webkit-', msAnimation:'-ms-', OAnimation:'-o-'}
-			};
-
-			if( !prop[properties] ){
-				console.log('properties not referenced !');
-				return {'css':'', 'js':false};
-			}
-
-			var root=document.documentElement;
-
-			for(key in prop[properties]){
-				if (key in root.style){
-		            return {'css':prop[properties][key], 'js':key};
-				}
-			}
-
-			console.log('Unkwon error...');
-			return {'css':'', 'js':false};
 
 		}
 

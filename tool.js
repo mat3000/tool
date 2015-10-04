@@ -49,6 +49,11 @@ var tool = {
 		init : function(){}
 	},
 	
+// custom scroll
+	customScroll : {
+		init : function(){}
+	},
+	
 // css prefix
 	css : {
 

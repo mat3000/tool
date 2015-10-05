@@ -2,34 +2,36 @@ var tool = {
 
 // environement
 	env : {
+		get_browser : function(){},
 		ie : function(){},
 		firefox : function(){},
 		chrome : function(){},
 		safari : function(){},
 		opera : function(){},
-
+		
+		get_device : function(){},
 		desktop : function(){},
 		mobile : function(){},
 		tablet : function(){},
-		toucheDevice : function(){},
-
+		touch : function(){},
+		
+		get_os : function(){},
 		windows : function(){},
 		mac : function(){},
 		linux : function(){},
-
 		ios : function(){},
 		android : function(){},
-		blackberry : function(){},
 		windowsPhone : function(){},
-
-		online : function(){},
-		offline : function(){}
+		blackberry : function(){},
+		
+		online : function(){}
 	},
 
 // regex
 	regex : {
 		url : function(){},
 		email : function(){},
+		tel : function(){},
 		creditCard : function(){}
 	},
 

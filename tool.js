@@ -2,6 +2,7 @@ var tool = {
 
 // environement
 	env : {
+
 		get_browser : function(){},
 		ie : function(){},
 		firefox : function(){},
@@ -25,11 +26,12 @@ var tool = {
 		blackberry : function(){},
 		
 		online : function(){}
+
 	},
 
 // regex
 	regex : {
-		url : function(){},
+		url : function(string){},
 		email : function(){},
 		tel : function(){},
 		creditCard : function(){}
@@ -37,7 +39,15 @@ var tool = {
 
 // notification
 	notif : {
-		init : function(){},
+		/*
+			param :
+				type
+				position
+				animation
+				max nombre
+				auto close
+		*/
+		init : function(param){},
 		alert : function(){}
 	},
 
@@ -58,6 +68,11 @@ var tool = {
 	customScroll : {
 		init : function(){}
 	},
+
+// slider
+	slider : {
+		init : function(){}
+	},
 	
 // css prefix
 	css : {
@@ -65,11 +80,11 @@ var tool = {
 		_root : document.documentElement,
 
 		_prop : {
-			'boxshadow' : {boxShadow:'', MozBoxShadow:'-moz-', WebkitBoxShadow:'-webkit-'},
-			'border-radius' : {borderRadius:'', MozBorderRadius:'-moz-', WebkitBorderRadius:'-webkit-'},
-			'transform' : {transform:'', MozTransform:'-moz-', WebkitTransforma:'-webkit-', msTransform:'-ms-', OTransform:'-o-'},
-			'transition' : {transition:'', MozTransition:'-moz-', WebkitTransition:'-webkit-', msTransition:'-ms-', OTransition:'-o-'},
-			'animation' : {animation:'', MozAnimation:'-moz-', WebkitAnimation:'-webkit-', msAnimation:'-ms-', OAnimation:'-o-'}
+			'boxshadow' : {boxShadow:'', WebkitBoxShadow:'-webkit-', MozBoxShadow:'-moz-'},
+			'border-radius' : {borderRadius:'', WebkitBorderRadius:'-webkit-', MozBorderRadius:'-moz-'},
+			'transform' : {transform:'', WebkitTransforma:'-webkit-', MozTransform:'-moz-', msTransform:'-ms-', OTransform:'-o-'},
+			'transition' : {transition:'', WebkitTransition:'-webkit-', MozTransition:'-moz-', msTransition:'-ms-', OTransition:'-o-'},
+			'animation' : {animation:'', WebkitAnimation:'-webkit-', MozAnimation:'-moz-', msAnimation:'-ms-', OAnimation:'-o-'}
 		},
 
 		prefix : function(properties){

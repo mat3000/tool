@@ -12,37 +12,101 @@
     <meta name="viewport" content="width = device-width, initial-scale = 1.0" />
 
     <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <link rel="stylesheet" href="tool.css" />
     
     <script type="text/javascript" src="http://matdev.fr/mylog/mylog-5.0/mylog.dev-5.0.18.js"></script>
     <script type="text/javascript">if(typeof log=='undefined'){log={time:function(){},size:function(){},key:function(){},loop:function(){},info:function(){},red:function(){},orange:function(){},yellow:function(){},green:function(){},Green:function(){},blue:function(){},violet:function(){},white:function(){},grey:function(){},black:function(){},show:function(){},important:function(){},alert:function(){},button:function(){},range:function(){}};};</script>
+
+
+
     <style type="text/css">
 
-    .test{
+    #tool-notif{
+        position: fixed;
+        top: 0;
+        left: 0;
+        /*background-color: rgba(255,0,0,0.5);*/
+    }
+
+    .tool-notif-notif{
         position: relative;
-        width: 50px;
-        height: 50px;
+        width: 300px;
+        height: 80px;
+        background-color: rgba(0,255,0,0.5);
+        margin: 5px 0 0 5px;
+        overflow: hidden;
+        /*height: 0px;*/
+        
+        /* -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
+        -ms-transition: all .3s ease-in-out;
+        -o-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out; */
+
+        animation: animeName 0.3s ease-in-out 0s 1 both;
+    }
+   
+    .tool-notif-close{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 10px;
+        height: 10px;
         background-color: red;
+        cursor: pointer;
     }
 
-    .test1{
-        /*-webkit-transition: -webkit-translate 1s linear;*/
-        transform : translate(50px);
+
+    @keyframes animeName {
+        0% {height: 0px;;}
+        100% {height: 80px;}
     }
 
+    .tool-notif-notif.hide{
+        animation: animeName2 0.3s ease-in-out 0s 1 both;
+    }
+
+
+    @keyframes animeName2 {
+        0% {height: 80px;}
+        100% {height: 0px;}
+    }
+       
 
     </style>
 </head>
 <body>
 
-    <div class="test test1">a</div>
-    <div class="test test2">b</div>
 
+    <div id="tool-notif"> 
+        <div class="tool-notif-notif">
+            <div class="tool-notif-close">x</div>
+        </div>
+        <!-- <div class="tool-notif-notif"></div> -->
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="tool.js"></script>
     <script type="text/javascript">
 
-    log.green( tool.css.prefix('border-radius') );
+    log.green( tool.css.prefix('transform') );
+    log.green( tool.css.js('transform') );
 
-    log.green( tool.css.js('border-radius') );
+    // tool.notif.init();
+
+    var i = 0;
+    log.button(function(){
+        // $('#tool-notif .tool-notif-notif').addClass('show')
+        $('#tool-notif').prepend('<div class="tool-notif-notif">'+(++i)+'<div class="tool-notif-close">x</div></div>')
+    });
+
+    $(document).on('click', '.tool-notif-close', function(){
+        $(this).parent().addClass('hide');
+        /*$(this).parent().fadeOut(function(){
+            $(this).remove();
+        })*/
+    });
 
 
 

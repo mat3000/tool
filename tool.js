@@ -43,6 +43,9 @@ var tool = {
 
 // dialog
 	dialog : {
+		/* param : 
+			tag
+		*/
 		init : function(){}
 	},
 	

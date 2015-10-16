@@ -24,54 +24,83 @@
 
     #tool-notif{
         position: fixed;
-        top: 0;
-        left: 0;
-        /*background-color: rgba(255,0,0,0.5);*/
+        top: 5px;
+        right: 5px;
+        /*background-color: rgba(255,0,0,0.1);*/
     }
 
-    .tool-notif-notif{
+    .tool-notif-box{
         position: relative;
         width: 300px;
-        height: 80px;
-        background-color: rgba(0,255,0,0.5);
-        margin: 5px 0 0 5px;
-        overflow: hidden;
-        /*height: 0px;*/
+        padding: 22px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        background-color: #55a;
+        box-shadow: 0 25px 10px -15px rgba(0, 0, 0, 0.05);
         
-        /* -webkit-transition: all .3s ease-in-out;
-        -moz-transition: all .3s ease-in-out;
-        -ms-transition: all .3s ease-in-out;
-        -o-transition: all .3s ease-in-out;
-        transition: all .3s ease-in-out; */
+        overflow: hidden;
+        transform-origin: 50% 0;
+    }
 
-        animation: animeName 0.3s ease-in-out 0s 1 both;
+    .tool-notif-box .tool-notif-content{
+        font-family: helvetica, arial, sans-serif;
+        font-size: 14px;
+        color: #eee;
+    }
+
+    .tool-notif-box.new{
+
+        /*animation: anim_classic 0.3s ease-in-out 0s 1 both;*/
+
+        animation: anim_new 0.3s ease-in-out 0s 1 both;
+
+    }
+
+    @keyframes anim_new {
+        0% {transform: scaleY(0);}
+        100% {transform: scaleY(1);}
+    }
+
+
+    .tool-notif-box.move{
+
+        /*animation: anim_classic 0.3s ease-in-out 0s 1 both;*/
+
+        animation: anim_move 0.3s ease-in-out 0s 1 both;
+
+    }
+
+    @keyframes anim_move {
+        0% {transform: translateY(-80px);}
+        100% {transform: translateY(0px);}
     }
    
+
+
+
+
+
+
     .tool-notif-close{
         position: absolute;
         top: 5px;
         right: 5px;
         width: 10px;
         height: 10px;
-        background-color: red;
+        background-color: #fff;
         cursor: pointer;
+        border-radius: 5px;
     }
 
 
-    @keyframes animeName {
-        0% {height: 0px;;}
+    @keyframes anim_classic {
+        0% {height: 0px;}
         100% {height: 80px;}
     }
 
-    .tool-notif-notif.hide{
-        animation: animeName2 0.3s ease-in-out 0s 1 both;
-    }
+    
 
 
-    @keyframes animeName2 {
-        0% {height: 80px;}
-        100% {height: 0px;}
-    }
        
 
     </style>
@@ -80,26 +109,40 @@
 
 
     <div id="tool-notif"> 
-        <div class="tool-notif-notif">
-            <div class="tool-notif-close">x</div>
+        <div class="tool-notif-box">
+            <div class="tool-notif-content">xxx xx x xxxxx</div>
+            <div class="tool-notif-close"></div>
         </div>
-        <!-- <div class="tool-notif-notif"></div> -->
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="tool.js"></script>
     <script type="text/javascript">
 
-    log.green( tool.css.prefix('transform') );
-    log.green( tool.css.js('transform') );
+    log.green( tool.css.prefix('transform'), 'prefix' );
+    log.green( tool.css.js('transform'), 'js' );
 
     // tool.notif.init();
 
+
+
     var i = 0;
     log.button(function(){
-        // $('#tool-notif .tool-notif-notif').addClass('show')
-        $('#tool-notif').prepend('<div class="tool-notif-notif">'+(++i)+'<div class="tool-notif-close">x</div></div>')
+
+        // $('#tool-notif .tool-notif-box').addClass('move');
+
+        log.green( $('#tool-notif').prepend('<div class="tool-notif-box"><div class="tool-notif-content">Ceci est une notification. Ceci est une notification. Ceci est une notification.</div><div class="tool-notif-close"></div></div>') )
+
+        /*setTimeout(function(){
+            $('#tool-notif .tool-notif-box').removeClass('move new');
+        },300)*/
+    
     });
+
+
+
+
+
 
     $(document).on('click', '.tool-notif-close', function(){
         $(this).parent().addClass('hide');
@@ -108,6 +151,8 @@
         })*/
     });
 
+
+    // tool.slider.init();
 
 
     </script>

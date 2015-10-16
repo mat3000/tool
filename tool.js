@@ -97,8 +97,9 @@ var tool = {
 			}
 
 			for(var key in self._prop[properties]){
-				if (key in self._root.style){
-		            return key;
+				// log.green(key)
+				if (self._prop[properties][key] in self._root.style){
+		            return self._prop[properties][key];
 				}
 			}
 
@@ -117,8 +118,8 @@ var tool = {
 			}
 
 			for(var key in self._prop[properties]){
-				if (key in self._root.style){
-		            return self._prop[properties][key];
+				if (self._prop[properties][key] in self._root.style){
+		            return key;
 				}
 			}
 

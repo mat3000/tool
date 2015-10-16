@@ -1,3 +1,17 @@
+
+/*(function(root, factory){
+
+	log.orange('okk');
+	log.orange(root, 'root');
+	log.orange(factory, 'factory');
+
+}(this, function(machin){
+
+	log.orange(this, 'this');
+	log.orange(machin,'machin');
+
+}));*/
+
 var tool = {
 
 // environement
@@ -40,27 +54,53 @@ var tool = {
 // notification
 	notif : {
 		/*
+
+			http://tympanus.net/Development/NotificationStyles/
+
 			param :
 				type
 				position
 				animation
-				max nombre
+				max notif
 				auto close
+
+			alert / info / button
 		*/
-		init : function(param){},
-		alert : function(){}
+		initialized : false,
+		init : function(param){
+
+			var self = this;
+
+			self.initialized = true;
+
+		},
+		alert : function(){
+
+			var self = this;
+
+			if(!self.initialized) self.init();
+
+		}
 	},
 
 // dialog
 	dialog : {
-		/* param : 
-			tag
+		/* 
+			http://tympanus.net/Development/DraggableElementsInteraction/
+			http://tympanus.net/Development/DialogEffects/
+
+			param : 
+				tag
 		*/
 		init : function(){}
 	},
 	
 // tooltips
 	tooltips : {
+		/*
+			http://tympanus.net/Development/TooltipStylesInspiration/
+
+		*/
 		init : function(){}
 	},
 	
@@ -71,7 +111,21 @@ var tool = {
 
 // slider
 	slider : {
-		init : function(){}
+		/*
+		param
+			type d'anim
+			tag
+
+		*/
+		init : function(){
+
+			self = this;
+			// log.violet(self)
+
+			// log.violet(tool)
+
+			// log.violet( self._self )
+		}
 	},
 	
 // css prefix

@@ -108,34 +108,72 @@
 <body>
 
 
-    <div id="tool-notif"> 
-        <div class="tool-notif-box">
-            <div class="tool-notif-content">xxx xx x xxxxx</div>
-            <div class="tool-notif-close"></div>
-        </div>
+    <div id="tool-notif">
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="tool.js"></script>
     <script type="text/javascript">
 
-    log.green( tool.css.prefix('transform'), 'prefix' );
-    log.green( tool.css.js('transform'), 'js' );
+    log.yellow( tool.css.prefix('transform'), 'prefix-transform' );
+    log.yellow( tool.css.prefix('transition'), 'prefix-transition' );
+    // log.yellow( tool.css.js('transform'), 'js' );
 
     // tool.notif.init();
+
+    var array = [
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+        'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        'consectetur adipisicing elit',
+        'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+        'xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    ]
 
 
 
     var i = 0;
     log.button(function(){
 
-        // $('#tool-notif .tool-notif-box').addClass('move');
+        var eq = 0;
 
-        log.green( $('#tool-notif').prepend('<div class="tool-notif-box"><div class="tool-notif-content">Ceci est une notification. Ceci est une notification. Ceci est une notification.</div><div class="tool-notif-close"></div></div>') )
+        $('#tool-notif').prepend('<div class="tool-notif-box"><div class="tool-notif-content">'+array[i++]+'</div><div class="tool-notif-close"></div></div>');
+        // $('#tool-notif .tool-notif-box').eq(eq-1).after('<div class="tool-notif-box"><div class="tool-notif-content">'+array[i++]+'</div><div class="tool-notif-close"></div></div>');
 
-        /*setTimeout(function(){
-            $('#tool-notif .tool-notif-box').removeClass('move new');
-        },300)*/
+        var $tool_notif_box = $('#tool-notif .tool-notif-box');
+        var $tool_notif_box_new = $tool_notif_box.eq(eq);
+        // var $tool_notif_box_aft = $(':nth-child(n+'+(eq+2)+')', $tool_notif_box);
+        var $tool_notif_box_aft = $('#tool-notif .tool-notif-box:nth-child(n+'+(eq+2)+')');
+        var h = $tool_notif_box_new.outerHeight(true);
+
+
+        $tool_notif_box_new
+            .css('transform', 'scaleY(0)')
+            .css('opacity', '0');
+
+        $tool_notif_box_aft
+            .css('transform', 'translateY(-'+h+'px)');
+
+
+        setTimeout(function(){
+
+            $tool_notif_box_new
+                .css('transition', 'all 0.3s ease-in-out')
+                .css('transform', 'scaleY(1)')
+                .css('opacity', '1');
+
+            $tool_notif_box_aft
+                .css('transition', 'transform 0.3s ease-in-out')
+                .css('transform', 'translateY(0px)');
+
+        });
+
+        setTimeout(function(){
+            
+            $tool_notif_box.css('transition', '');
+
+        },350);
+
     
     });
 
@@ -145,10 +183,45 @@
 
 
     $(document).on('click', '.tool-notif-close', function(){
-        $(this).parent().addClass('hide');
-        /*$(this).parent().fadeOut(function(){
-            $(this).remove();
-        })*/
+
+        var $tool_notif_box_remove = $(this).parent();
+
+        var eq = $tool_notif_box_remove.index();
+        var h = $tool_notif_box_remove.outerHeight(true);
+
+        var $tool_notif_box_aft = $('#tool-notif .tool-notif-box:nth-child(n+'+(eq+2)+')');
+
+        $tool_notif_box_remove
+            .css('transform', 'scaleY(1)')
+            .css('opacity', '1');
+
+
+        $tool_notif_box_aft
+            .css('transform', 'translateY(0px)');
+
+        setTimeout(function(){
+
+            $tool_notif_box_remove
+                .css('transition', 'all 0.3s ease-in-out')
+                .css('transform', 'scaleY(0)')
+                .css('opacity', '0');
+
+            $tool_notif_box_aft
+                .css('transition', 'transform 0.3s ease-in-out')
+                .css('transform', 'translateY(-'+h+'px)');
+
+        });
+
+        setTimeout(function(){
+            
+            $tool_notif_box_remove.remove();
+
+            $tool_notif_box_aft
+                .css('transition', '')
+                .css('transform', '');
+
+        },350);
+
     });
 
 

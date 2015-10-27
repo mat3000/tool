@@ -151,7 +151,6 @@ var tool = {
 			}
 
 			for(var key in self._prop[properties]){
-				// log.green(key)
 				if (self._prop[properties][key] in self._root.style){
 		            return self._prop[properties][key];
 				}

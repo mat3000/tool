@@ -22,11 +22,32 @@
 
     <style type="text/css">
 
+    html{
+        height: 100%;
+    }
+
+    body{
+        height: 200%;
+    }
+
     #tool-notif{
         position: fixed;
-        top: 5px;
-        right: 5px;
+        top: 0;
+        left: 0;
+        /*right: 0px;*/
+        margin: 5px;
+        z-index: 99999999;
         /*background-color: rgba(255,0,0,0.1);*/
+    }
+
+    #tool-notif.tool-notif-top-right{
+        left: auto;
+        right: 0;
+    }
+
+    #tool-notif.tool-notif-top-middle{
+        left: 50%;
+        margin-left: -150px;
     }
 
     .tool-notif-box{
@@ -41,6 +62,10 @@
         overflow: hidden;
         transform-origin: 50% 0;
     }
+    .tool-notif-box-alert{
+
+        background-color: #f55;
+    }
 
     .tool-notif-box .tool-notif-content{
         font-family: helvetica, arial, sans-serif;
@@ -49,8 +74,6 @@
     }
 
     .tool-notif-box.new{
-
-        /*animation: anim_classic 0.3s ease-in-out 0s 1 both;*/
 
         animation: anim_new 0.3s ease-in-out 0s 1 both;
 
@@ -63,8 +86,6 @@
 
 
     .tool-notif-box.move{
-
-        /*animation: anim_classic 0.3s ease-in-out 0s 1 both;*/
 
         animation: anim_move 0.3s ease-in-out 0s 1 both;
 
@@ -108,18 +129,15 @@
 <body>
 
 
-    <div id="tool-notif">
-    </div>
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="tool.js"></script>
     <script type="text/javascript">
 
-    log.yellow( tool.css.prefix('transform'), 'prefix-transform' );
-    log.yellow( tool.css.prefix('transition'), 'prefix-transition' );
-    // log.yellow( tool.css.js('transform'), 'js' );
+    log.yellow( tool.css.prefix('transform'), 'prefix' );
+    log.yellow( tool.css.prefix('transition'), 'prefix' );
+    // log.yellow( tool.css.prefix('color'), 'prefix' );
 
-    // tool.notif.init();
+    tool.notif.init();
 
     var array = [
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
@@ -129,103 +147,10 @@
         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
         'xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     ]
-
-
-
-    var i = 0;
+    var i=0;
     log.button(function(){
-
-        var eq = 0;
-
-        $('#tool-notif').prepend('<div class="tool-notif-box"><div class="tool-notif-content">'+array[i++]+'</div><div class="tool-notif-close"></div></div>');
-        // $('#tool-notif .tool-notif-box').eq(eq-1).after('<div class="tool-notif-box"><div class="tool-notif-content">'+array[i++]+'</div><div class="tool-notif-close"></div></div>');
-
-        var $tool_notif_box = $('#tool-notif .tool-notif-box');
-        var $tool_notif_box_new = $tool_notif_box.eq(eq);
-        // var $tool_notif_box_aft = $(':nth-child(n+'+(eq+2)+')', $tool_notif_box);
-        var $tool_notif_box_aft = $('#tool-notif .tool-notif-box:nth-child(n+'+(eq+2)+')');
-        var h = $tool_notif_box_new.outerHeight(true);
-
-
-        $tool_notif_box_new
-            .css('transform', 'scaleY(0)')
-            .css('opacity', '0');
-
-        $tool_notif_box_aft
-            .css('transform', 'translateY(-'+h+'px)');
-
-
-        setTimeout(function(){
-
-            $tool_notif_box_new
-                .css('transition', 'all 0.3s ease-in-out')
-                .css('transform', 'scaleY(1)')
-                .css('opacity', '1');
-
-            $tool_notif_box_aft
-                .css('transition', 'transform 0.3s ease-in-out')
-                .css('transform', 'translateY(0px)');
-
-        });
-
-        setTimeout(function(){
-            
-            $tool_notif_box.css('transition', '');
-
-        },350);
-
-    
+        tool.notif.alert(array[++i]);
     });
-
-
-
-
-
-
-    $(document).on('click', '.tool-notif-close', function(){
-
-        var $tool_notif_box_remove = $(this).parent();
-
-        var eq = $tool_notif_box_remove.index();
-        var h = $tool_notif_box_remove.outerHeight(true);
-
-        var $tool_notif_box_aft = $('#tool-notif .tool-notif-box:nth-child(n+'+(eq+2)+')');
-
-        $tool_notif_box_remove
-            .css('transform', 'scaleY(1)')
-            .css('opacity', '1');
-
-
-        $tool_notif_box_aft
-            .css('transform', 'translateY(0px)');
-
-        setTimeout(function(){
-
-            $tool_notif_box_remove
-                .css('transition', 'all 0.3s ease-in-out')
-                .css('transform', 'scaleY(0)')
-                .css('opacity', '0');
-
-            $tool_notif_box_aft
-                .css('transition', 'transform 0.3s ease-in-out')
-                .css('transform', 'translateY(-'+h+'px)');
-
-        });
-
-        setTimeout(function(){
-            
-            $tool_notif_box_remove.remove();
-
-            $tool_notif_box_aft
-                .css('transition', '')
-                .css('transform', '');
-
-        },350);
-
-    });
-
-
-    // tool.slider.init();
 
 
     </script>

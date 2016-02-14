@@ -14,7 +14,7 @@
 
 var tool = {
 
-// environement
+// environement v0.0
 	env : {
 
 		get_browser : function(){},
@@ -43,7 +43,7 @@ var tool = {
 
 	},
 
-// regex
+// regex v0.0
 	regex : {
 		url : function(string){},
 		email : function(){},
@@ -51,7 +51,7 @@ var tool = {
 		creditCard : function(){}
 	},
 
-// notification
+// notification v0.1
 	notif : {
 		/*
 
@@ -61,15 +61,15 @@ var tool = {
 				type : ?
 				position : top/bottom | left/middle/right
 				animation : ?
-				max notif : number
-				auto close : true | false
+				max-notif : number
+				auto-close : number | false
 
 			alert / info / button
 		*/
 		
 		defaults : {
 			type : null, // ?
-			position : 'top-right', // top | left/middle/right
+			position : 'right', // left/middle/right
 			animation : null, // ?
 			maxNotif : false, // false | number
 			autoClose : false, // true | false
@@ -79,6 +79,8 @@ var tool = {
 		initialized : false,
 		buzy : false,
 		mem : [],
+		id:0,
+		i:1,
 
 		init : function(options){
 
@@ -90,9 +92,9 @@ var tool = {
 
 			self.initialized = true;
 
-			$('body').append('<div id="tool-notif" class="tool-notif-' + self.options.position + '"></div>');
+			$('body').append('<div id="tool-notif" class="tool-notif-top-' + self.options.position + '"></div>');
 
-			$(document).on('click', '#tool-notif .tool-notif-close', function(){
+			$(document).on('click', '#tool-notif .tool-notif-close, #tool-notif .tool-notif-confirm', function(){
 
 		        var $tool_notif_box_remove = $(this).parent();
 
@@ -135,40 +137,67 @@ var tool = {
     		});
 
 		},
-		alert : function(string){
+
+		alert : function(string, callback){
 
 			var self = this;
 
 			self.init();
+			var id = self.id++;
+			var type = 'alert';
 
-			self._show_notif('alert', string);
+			self._show_notif('<div class="tool-notif-box tool-notif-box-alert"><div class="tool-notif-content"><b>'+type+' :</b> '+string+'</div><div id="tool-notif-id-'+id+'" class="tool-notif-close"></div></div>');
 
+			$(document).one('click.callback', '#tool-notif-id-'+id, function(){
+				if(callback) callback();
+			});
 		},
-		
-		info : function(string){
+
+		info : function(string, callback){
 
 			var self = this;
 
 			self.init();
+			var id = self.id++;
+			var type = 'info';
 
-			self._show_notif('info', string);
+			self._show_notif('<div class="tool-notif-box tool-notif-box-info"><div class="tool-notif-content"><b>'+type+' :</b> '+string+'</div><div id="tool-notif-id-'+id+'" class="tool-notif-close"></div></div>');
+
+			$(document).one('click.callback', '#tool-notif-id-'+id, function(){
+				if(callback) callback();
+			});
 
 		},
 
-		_show_notif : function(type, string, force){
+		button : function(string, callback){
+
+			var self = this;
+
+			self.init();
+			var id = self.id++;
+
+			self._show_notif('<div class="tool-notif-box tool-notif-box-button"><div class="tool-notif-content">'+string+'</div><div id="tool-notif-id-'+id+'" class="tool-notif-confirm"><span>OK</span></div></div>');
+
+			$(document).one('click.callback', '#tool-notif-id-'+id, function(){
+				if(callback) callback();
+			});
+
+		},
+
+		_show_notif : function(html, force){
 
 			var self = this;
 
 			if(!self.buzy) 
 				self.buzy=true;
 			else if(!force){
-				self._add_mem(type, string);
+				self._add_mem(html);
 				return;
 			}
 
 			var eq = 0;
 
-	        $('#tool-notif').prepend('<div class="tool-notif-box tool-notif-box-'+type+'"><div class="tool-notif-content"><b>'+type+' :</b> '+string+'</div><div class="tool-notif-close"></div></div>');
+	        $('#tool-notif').prepend(html);
 
 	        var $tool_notif_box = $('#tool-notif .tool-notif-box');
 	        var $tool_notif_box_new = $tool_notif_box.eq(eq);
@@ -176,6 +205,7 @@ var tool = {
 	        var h = $tool_notif_box_new.outerHeight(true);
 
 	        $tool_notif_box_new
+	            // .css('transform', 'rotateX(90deg)')
 	            .css('transform', 'scaleY(0)')
 	            .css('opacity', '0');
 
@@ -185,7 +215,9 @@ var tool = {
 	        setTimeout(function(){
 
 	            $tool_notif_box_new
+	            	.css('z-index', self.i++)
 	                .css('transition', 'all '+self.options.speed+'ms ease-in-out')
+	                // .css('transform', 'rotateX(0deg)')
 	                .css('transform', 'scaleY(1)')
 	                .css('opacity', '1');
 
@@ -207,21 +239,21 @@ var tool = {
 		_check_mem : function(){
 			var self = this;
 			if(self.mem.length){
-				self._show_notif(self.mem[0].type, self.mem[0].string, true);
+				self._show_notif(self.mem[0], true);
 				self.mem.splice(0,1);
 				return true;
 			}
 			return false;	
 		},
 
-		_add_mem : function(type, string){
+		_add_mem : function(html){
 			var self = this;
-			self.mem.push({type:type, string:string})
+			self.mem.push(html)
 		}
 
 	},
 
-// dialog
+// dialog v0.0
 	dialog : {
 		/* 
 			http://tympanus.net/Development/DraggableElementsInteraction/
@@ -233,7 +265,7 @@ var tool = {
 		init : function(){}
 	},
 	
-// tooltips
+// tooltips v0.0
 	tooltips : {
 		/*
 			http://tympanus.net/Development/TooltipStylesInspiration/
@@ -242,12 +274,12 @@ var tool = {
 		init : function(){}
 	},
 	
-// custom scroll
+// custom scroll v0.0
 	customScroll : {
 		init : function(){}
 	},
 
-// slider
+// slider v0.0
 	slider : {
 		/*
 		param
@@ -266,7 +298,7 @@ var tool = {
 		}
 	},
 	
-// css prefix
+// css prefix v1.0
 	css : {
 
 		/*

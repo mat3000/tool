@@ -15,8 +15,8 @@
 
     <link rel="stylesheet" href="tool.css" />
     
-    <script type="text/javascript" src="http://matdev.fr/mylog/mylog-5.0/mylog.dev-5.0.18.js"></script>
-    <script type="text/javascript">if(typeof log=='undefined'){log={time:function(){},size:function(){},key:function(){},loop:function(){},info:function(){},red:function(){},orange:function(){},yellow:function(){},green:function(){},Green:function(){},blue:function(){},violet:function(){},white:function(){},grey:function(){},black:function(){},show:function(){},important:function(){},alert:function(){},button:function(){},range:function(){}};};</script>
+    <script src="http://myconsole.matdev.fr/mylog.dev-6.0.0.js"></script>
+    <script type="text/javascript">(function(){var methods=['php','show','hide','info','loop','red','Red','orange','yellow','green','Green','blue','violet','white','grey','black','time','size','key','button','range'];var length=methods.length;var console=(window.log=window.log||{});while(length--){if(!log[methods[length]])log[methods[length]]=function(){};}})();</script>
 
 
 
@@ -30,96 +30,10 @@
         height: 200%;
     }
 
-    #tool-notif{
-        position: fixed;
-        top: 0;
-        left: 0;
-        /*right: 0px;*/
-        margin: 5px;
-        z-index: 99999999;
-        /*background-color: rgba(255,0,0,0.1);*/
-    }
-
-    #tool-notif.tool-notif-top-right{
-        left: auto;
-        right: 0;
-    }
-
-    #tool-notif.tool-notif-top-middle{
-        left: 50%;
-        margin-left: -150px;
-    }
-
-    .tool-notif-box{
-        position: relative;
-        width: 300px;
-        padding: 22px;
-        margin-bottom: 5px;
-        border-radius: 5px;
-        background-color: #55a;
-        box-shadow: 0 25px 10px -15px rgba(0, 0, 0, 0.05);
-        
-        overflow: hidden;
-        transform-origin: 50% 0;
-    }
-    .tool-notif-box-alert{
-
-        background-color: #f55;
-    }
-
-    .tool-notif-box .tool-notif-content{
-        font-family: helvetica, arial, sans-serif;
-        font-size: 14px;
-        color: #eee;
-    }
-
-    .tool-notif-box.new{
-
-        animation: anim_new 0.3s ease-in-out 0s 1 both;
-
-    }
-
-    @keyframes anim_new {
-        0% {transform: scaleY(0);}
-        100% {transform: scaleY(1);}
-    }
-
-
-    .tool-notif-box.move{
-
-        animation: anim_move 0.3s ease-in-out 0s 1 both;
-
-    }
-
-    @keyframes anim_move {
-        0% {transform: translateY(-80px);}
-        100% {transform: translateY(0px);}
-    }
-   
-
-
-
-
-
-
-    .tool-notif-close{
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        width: 10px;
-        height: 10px;
-        background-color: #fff;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-
-    @keyframes anim_classic {
-        0% {height: 0px;}
-        100% {height: 80px;}
-    }
 
     
+
+        
 
 
        
@@ -133,23 +47,32 @@
     <script type="text/javascript" src="tool.js"></script>
     <script type="text/javascript">
 
+/* PREFIX */
     log.yellow( tool.css.prefix('transform'), 'prefix' );
     log.yellow( tool.css.prefix('transition'), 'prefix' );
     // log.yellow( tool.css.prefix('color'), 'prefix' );
 
+
+/* NOTIF */
     tool.notif.init();
 
     var array = [
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        'consectetur adipisicing elit',
-        'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        'xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        {type:'button', text:'Lorem ipsum dolor sit amet'},
+        {type:'info',   text:'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
+        {type:'alert',  text:'consectetur adipisicing elit', type:'alert'},
+        {type:'button', text:'xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'},
+        {type:'info',   text:'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'},
+        {type:'info',   text:'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'},
+        {type:'alert',  text:'xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'}
     ]
+    
     var i=0;
-    log.button(function(){
-        tool.notif.alert(array[++i]);
+    log.button('notification', function(){
+        if(i>array.length-1)i=0;
+        tool.notif[array[i].type](array[i].text, function(){
+            log.green('closed', 'notification')
+        });
+        i++;
     });
 
 

@@ -1,0 +1,85 @@
+/* tool-notif */
+    #tool-notif{
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 5px;
+        z-index: 99999999;
+        perspective: 500px;
+        }
+        #tool-notif.tool-notif-top-right{
+            left: auto;
+            right: 0;
+            }
+        #tool-notif.tool-notif-top-middle{
+            left: 50%;
+            margin-left: -150px;
+            }
+
+        #tool-notif *{
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            }
+
+
+        #tool-notif .tool-notif-box{
+            position: relative;
+            width: 350px;
+            padding: 17px 20px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            background-color: #55a;
+            box-shadow: 0 25px 10px -15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transform-origin: 50% 0;
+            }
+        #tool-notif .tool-notif-box-alert{
+            background-color: #f55;
+            }
+        #tool-notif .tool-notif-box-button{
+            padding-right: 90px;
+            }
+
+            #tool-notif .tool-notif-box .tool-notif-content{
+                font-family: helvetica, arial, sans-serif;
+                font-size: 14px;
+                color: #eee;
+                }
+
+        #tool-notif .tool-notif-close{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            }
+        
+        #tool-notif .tool-notif-confirm{
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 70px;
+            height: 100%;
+            background-color: rgba(235, 235, 235, 0.3);
+            cursor: pointer;
+            border-radius: 0px 5px 5px 0px;
+            text-align: center;
+            font-family: helvetica, arial, sans-serif;
+            color: #fff;
+            }
+            #tool-notif .tool-notif-confirm span { 
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                margin-top: -9px;
+                }
+            #tool-notif .tool-notif-confirm:hover{
+                background-color: rgba(235, 235, 235, 0.4);
+                }
+            #tool-notif .tool-notif-confirm:active{
+                background-color: rgba(235, 235, 235, 0.6);
+                }

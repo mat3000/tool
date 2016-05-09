@@ -75,6 +75,7 @@ var tool = {
 			autoClose : false, // true | false
 			speed : 400 // number in ms
 		},
+		$notif : null,
 		options : null,
 		initialized : false,
 		buzy : false,
@@ -92,21 +93,22 @@ var tool = {
 
 			self.initialized = true;
 
-			$('body').append('<div id="tool-notif" class="tool-notif-top-' + self.options.position + '"></div>');
+			$('body').append('<div id="tool-notif" class="tool-notif__top-' + self.options.position + '"></div>');
 
-			$(document).on('click', '#tool-notif .tool-notif-close, #tool-notif .tool-notif-confirm', function(){
+			self.$notif = $('#tool-notif');
+
+			$(document).on('click', '#tool-notif .tool-notif__close, #tool-notif .tool-notif__confirm', function(){
 
 		        var $tool_notif_box_remove = $(this).parent();
 
 		        var eq = $tool_notif_box_remove.index();
 		        var h = $tool_notif_box_remove.outerHeight(true);
 
-		        var $tool_notif_box_aft = $('#tool-notif .tool-notif-box:nth-child(n+'+(eq+2)+')');
+		        var $tool_notif_box_aft = $('#tool-notif .tool-notif__box:nth-child(n+'+(eq+2)+')');
 
 		        $tool_notif_box_remove
 		            .css('transform', 'scaleY(1)')
 		            .css('opacity', '1');
-
 
 		        $tool_notif_box_aft
 		            .css('transform', 'translateY(0px)');
@@ -146,9 +148,9 @@ var tool = {
 			var id = self.id++;
 			var type = 'alert';
 
-			self._show_notif('<div class="tool-notif-box tool-notif-box-alert"><div class="tool-notif-content"><b>'+type+' :</b> '+string+'</div><div id="tool-notif-id-'+id+'" class="tool-notif-close"></div></div>');
+			self._show_notif('<div class="tool-notif__box tool-notif__box-alert"><div class="tool-notif__content"><b>'+type+' :</b> '+string+'</div><div id="tool-notif__id-'+id+'" class="tool-notif__close"></div></div>');
 
-			$(document).one('click.callback', '#tool-notif-id-'+id, function(){
+			$(document).one('click.callback', '#tool-notif__id-'+id, function(){
 				if(callback) callback();
 			});
 		},
@@ -161,9 +163,9 @@ var tool = {
 			var id = self.id++;
 			var type = 'info';
 
-			self._show_notif('<div class="tool-notif-box tool-notif-box-info"><div class="tool-notif-content"><b>'+type+' :</b> '+string+'</div><div id="tool-notif-id-'+id+'" class="tool-notif-close"></div></div>');
+			self._show_notif('<div class="tool-notif__box tool-notif__box-info"><div class="tool-notif__content"><b>'+type+' :</b> '+string+'</div><div id="tool-notif__id-'+id+'" class="tool-notif__close"></div></div>');
 
-			$(document).one('click.callback', '#tool-notif-id-'+id, function(){
+			$(document).one('click.callback', '#tool-notif__id-'+id, function(){
 				if(callback) callback();
 			});
 
@@ -176,9 +178,9 @@ var tool = {
 			self.init();
 			var id = self.id++;
 
-			self._show_notif('<div class="tool-notif-box tool-notif-box-button"><div class="tool-notif-content">'+string+'</div><div id="tool-notif-id-'+id+'" class="tool-notif-confirm"><span>OK</span></div></div>');
+			self._show_notif('<div class="tool-notif__box tool-notif__box-button"><div class="tool-notif__content">'+string+'</div><div id="tool-notif__id-'+id+'" class="tool-notif__confirm"><span>OK</span></div></div>');
 
-			$(document).one('click.callback', '#tool-notif-id-'+id, function(){
+			$(document).one('click.callback', '#tool-notif__id-'+id, function(){
 				if(callback) callback();
 			});
 
@@ -197,39 +199,37 @@ var tool = {
 
 			var eq = 0;
 
-	        $('#tool-notif').prepend(html);
+	        self.$notif.prepend(html);
 
-	        var $tool_notif_box = $('#tool-notif .tool-notif-box');
+	        var $tool_notif_box = $('.tool-notif__box', self.$notif);
 	        var $tool_notif_box_new = $tool_notif_box.eq(eq);
-	        var $tool_notif_box_aft = $('#tool-notif .tool-notif-box:nth-child(n+'+(eq+2)+')');
+	        var $tool_notif_box_aft = $('.tool-notif__box:nth-child(n+'+(eq+2)+')', self.$notif);
 	        var h = $tool_notif_box_new.outerHeight(true);
 
 	        $tool_notif_box_new
-	            // .css('transform', 'rotateX(90deg)')
-	            .css('transform', 'scaleY(0)')
+	            .css(tool.css.prefix('transform'), 'scaleY(0)')
 	            .css('opacity', '0');
 
 	        $tool_notif_box_aft
-	            .css('transform', 'translateY(-'+h+'px)');
+	            .css(tool.css.prefix('transform'), 'translateY(-'+h+'px)');
 
 	        setTimeout(function(){
 
 	            $tool_notif_box_new
 	            	.css('z-index', self.i++)
-	                .css('transition', 'all '+self.options.speed+'ms ease-in-out')
-	                // .css('transform', 'rotateX(0deg)')
-	                .css('transform', 'scaleY(1)')
+	                .css(tool.css.prefix('transition'), tool.css.prefix('transform')+' '+self.options.speed+'ms ease-in-out')
+	                .css(tool.css.prefix('transform'), 'scaleY(1)')
 	                .css('opacity', '1');
 
 	            $tool_notif_box_aft
-	                .css('transition', 'transform '+self.options.speed+'ms ease-in-out')
-	                .css('transform', 'translateY(0px)');
+	                .css(tool.css.prefix('transition'), tool.css.prefix('transform')+' '+self.options.speed+'ms ease-in-out')
+	                .css(tool.css.prefix('transform'), 'translateY(0px)');
 
 	        });
 
 	        setTimeout(function(){
 	            
-	            $tool_notif_box.css('transition', '');
+	            $tool_notif_box.css(tool.css.prefix('transition'), '');
 	            if(!self._check_mem()) self.buzy=false;
 
 	        },self.options.speed+10);
@@ -259,10 +259,52 @@ var tool = {
 			http://tympanus.net/Development/DraggableElementsInteraction/
 			http://tympanus.net/Development/DialogEffects/
 
-			param : 
-				tag
 		*/
-		init : function(){}
+		defaults : {
+			animation : null, // ?
+			autoClose : false, // true | false
+			speed : 400 // number in ms
+		},
+		options : null,
+		initialized : false,
+		// buzy : false,
+		// mem : [],
+		// id:0,
+		// i:1,
+
+		init : function(options){
+
+			var self = this;
+
+			if(self.initialized) return;
+
+			self.options = $.extend( {}, self.defaults, options);
+
+			self.initialized = true;
+
+			$('body').append('<div id="tool-dialog"></div>');
+
+		},
+
+		show : function(string){
+
+			var $html =  $('<div class="tool-dialog__box">\
+				                <div class="tool-dialog__header">\
+				                    <div class="tool-dialog__title">title</div>\
+				                </div>\
+				                <div class="tool-dialog__content">'+string+'</div>\
+				                <div class="tool-dialog__buttons">\
+				                    <div class="tool-dialog__button tool-dialog__candel">cancel</div>\
+				                    <div class="tool-dialog__button tool-dialog__ok">ok</div>\
+				                </div>\
+				            </div>');
+
+            $('#tool-dialog').html($html);
+
+            $html.css('margin-top', -$html.outerHeight(true)/2 );
+
+		}
+
 	},
 	
 // tooltips v0.0
@@ -302,7 +344,7 @@ var tool = {
 	css : {
 
 		/*
-			modernizr
+			ref : modernizr
 		*/
 
 		_root : document.documentElement,

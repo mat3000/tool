@@ -367,9 +367,17 @@ var tool = {
 				return properties;
 			}
 
+
+			/*var root=document.documentElement;
+
+			for(key in prop[properties]){
+				if (key in root.style){
+		            		return {'css':prop[properties][key], 'js':key};*/
+
 			for(var key in self._prop[properties]){
 				if (self._prop[properties][key] in self._root.style){
 					prefix = self._prop[properties][key];
+
 				}
 			}
 
